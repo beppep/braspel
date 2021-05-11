@@ -13,6 +13,13 @@ using namespace std;
 int resx = 800;
 int resy = 600;
 
+class Ship {
+public:
+	int x;
+	int y;
+	
+};
+
 void keydown(SDL_Scancode key)
 {
 	
@@ -70,18 +77,34 @@ void event()
 
 void logic()
 {
-
+	for (int i = 1; i < 1; i++)
+	{
+		el_boat.x += 1;
+		el_boat.y += 1;
+	}
 }
 
 void render()
 {
 
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(renderer);
 	//render background
+	SDL_Surface* bild = IMG_Load("sprites/ship.png");
+	SDL_Rect* bilds = new SDL_Rect{ 0,0, bild->w,bild->h };
 
+	SDL_Texture* bildt = SDL_CreateTextureFromSurface(renderer, bild);
+
+
+
+	//SDL_BlitSurface(bild, bilds, winsur, bilds);
+
+	SDL_RenderCopy(renderer, bildt, bilds, bilds);
 	//render build
 	if(build_update)
+	{
+
+	}
 
 
 	//render objects
@@ -112,6 +135,8 @@ int main(int argc, char *argv[])
 	renderer = SDL_CreateRenderer(window, 0, 0);
 
 	frame_time_start = chrono::high_resolution_clock::now().time_since_epoch().count();
+
+	Ship el_boat;
 
 	while(running)
 	{
